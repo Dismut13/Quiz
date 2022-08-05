@@ -17,10 +17,10 @@ public class CheckAnswerFromMouse : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ray, Vector3.back);
 
         Debug.Log("Update");
-        if(hit != null && Input.GetMouseButtonDown(0))
+        if(hit != null && Input.GetMouseButtonDown(0) && hit.transform)
         {
             Debug.Log("Ray");
-            if(hit.transform.TryGetComponent<Variants>(out Variants v))
+            if (hit.transform.TryGetComponent<Variants>(out Variants v))
             {
                 if (v._isRightAnswer)
                 {
@@ -29,6 +29,5 @@ public class CheckAnswerFromMouse : MonoBehaviour
                 Debug.Log("++");
             }
         }
-
     }
 }
