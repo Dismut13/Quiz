@@ -24,14 +24,13 @@ public class ImageIfRight : MonoBehaviour
     }
     public void CheckVariant()
     {
-        if (_variant._isRightAnswer && _variant._isButtonDowned && !_isComplete)
+        if (_uiManagment._isRightAnswer && !_isComplete)
         {
             transform.GetComponent<Image>().color = _color;
-            _uiManagment._levels[_uiManagment._nowLevel].SetActive(false);
-            _uiManagment._nowLevel++;
+           //_uiManagment._levels[_uiManagment._nowLevel].SetActive(false);
             _isComplete = true;
         }
-        if(_uiManagment._nowLevel == 0)
+        if(!_uiManagment._isRightAnswer)
         {
             transform.GetComponent<Image>().color = new Color(0f, 0f, 0f);
             _isComplete = false;
