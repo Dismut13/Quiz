@@ -3,12 +3,14 @@ using UnityEngine.UI;
 
 public class CheckAnswerSystem : MonoBehaviour
 {
-    public int _rightAnswerCount;
-
     [SerializeField] private Text _uiRightCount;
+
+    [SerializeField] private CoinsSystem _scoreSystem;
+
+    public int _rightAnswerCount;
 
     private void Update()
     {
-        _uiRightCount.text = _rightAnswerCount + "";
+        _uiRightCount.text = "Score: " + _scoreSystem._score + "\n" + "Coins: " + _scoreSystem._coins;
     }
 }
