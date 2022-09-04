@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Prompt : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _variantsPrompt;
-    [SerializeField] private GameObject[] _variantPrompt;
-    [SerializeField] private GameObject[] _testPrompt;
+    [SerializeField] public List<GameObject> _variantsPrompt;
+    [SerializeField] public List<GameObject> _variantPrompt;
 
     private int _randromPrompt;
 
@@ -13,12 +13,15 @@ public class Prompt : MonoBehaviour
     private void Awake()
     {
         _managment = FindObjectOfType<UIManagment>();
-        _variantPrompt = _variantsPrompt;
-        _testPrompt = _variantsPrompt;
+        _variantPrompt = new List<GameObject>(_variantsPrompt);
     }
 
     private void Update()
     {
+        if (_managment._isNewPrompt)
+        {
+            _variantPrompt = new List<GameObject>(_variantsPrompt);
+        }
         if (_managment._isPrompt)
         {
             UsePrompt();
@@ -33,15 +36,18 @@ public class Prompt : MonoBehaviour
 
     private void UsePrompt()
     {
-        _randromPrompt = Random.Range(0, _variantPrompt.Length);
-        if(_variantPrompt[_randromPrompt] != null)
-            _variantPrompt[_randromPrompt].SetActive(!_managment._isPrompt);
-        else
+        if(_variantPrompt.Count > 0)
         {
-            _randromPrompt = Random.Range(0, _variantPrompt.Length);
-            UsePrompt();
+            _randromPrompt = Random.Range(0, _variantPrompt.Count);
+            if (_variantPrompt[_randromPrompt] != null)
+                _variantPrompt[_randromPrompt].SetActive(!_managment._isPrompt);
+            else
+            {
+                _randromPrompt = Random.Range(0, _variantPrompt.Count);
+                UsePrompt();
+            }
+            _variantPrompt.RemoveAt(_randromPrompt);
         }
-        _variantPrompt[_randromPrompt] = null;
     }
     private void RePrompt()
     {

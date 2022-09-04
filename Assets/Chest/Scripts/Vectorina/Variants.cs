@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class Variants : MonoBehaviour
 {
+    public int _minusCount = 25;
+    public int _plusCount = 5;
+
     public bool _isRightAnswer;
     public bool _isButtonDowned;
 
@@ -22,9 +25,12 @@ public class Variants : MonoBehaviour
     {
         if (_managment._isUsePrompt && _isRightAnswer)
         {
-            transform.GetComponent<Image>().color = Color.green;
-            _coinsSystem.MinusCoin(25);
-            _managment._isUsePrompt = false;
+            //transform.GetComponent<Image>().color = Color.green;
+            if(_coinsSystem._coins >= _minusCount)
+            {
+                _coinsSystem.MinusCoin(_minusCount);
+                _managment._isUsePrompt = false;
+            }
         }
     }
 
@@ -34,7 +40,8 @@ public class Variants : MonoBehaviour
         {
             transform.GetComponent<Image>().color = _originalColor;
             _managment._isRightAnswer = true;
-            _coinsSystem.PlusCoin(5);
+            _coinsSystem.PlusCoin(_plusCount);
+            _coinsSystem._score++;
         }
         else
         {
