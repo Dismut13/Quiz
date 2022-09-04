@@ -11,6 +11,6 @@ public class CheckAnswerSystem : MonoBehaviour
 
     private void Update()
     {
-        _uiRightCount.text = "Score: " + _scoreSystem._score + "\n" + "Coins: " + _scoreSystem._coins;
+        _uiRightCount.text = "High Score: " + _scoreSystem._highScore + "\n" + "Coins: " + _scoreSystem._coins;
     }
 }

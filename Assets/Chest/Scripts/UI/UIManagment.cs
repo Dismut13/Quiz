@@ -49,7 +49,7 @@ public class UIManagment : MonoBehaviour
             _levels[nextLevel - 1].SetActive(false);
             _isRightAnswer = false;
             _isNewPrompt = false;
-            _save.SaveGame(_score._coins, _score._score, _nowLevel);
+            _save.SaveGame(_score._coins, _score._highScore, _nowLevel);
         }
         else
         {
@@ -63,7 +63,7 @@ public class UIManagment : MonoBehaviour
             _promptButton.SetActive(_isRightAnswer);
             _nowLevel = 0;
             _isNewPrompt = true;
-            _save.SaveGame(_score._coins, _score._score, _nowLevel);
+            _save.SaveGame(_score._coins, _score._highScore, _nowLevel);
             //ReGame();
         }
     }
@@ -100,7 +100,7 @@ public class UIManagment : MonoBehaviour
     public void ReGame()
     {
         _nowLevel = 0;
-        _score._score = 0;
+        _score._nowScore = 0;
         _score._coins = 0;
     }
 }

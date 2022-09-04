@@ -36,14 +36,16 @@ public class Variants : MonoBehaviour
 
     public void RightButton(bool _isRight)
     {
-        if (_isRight)
+        if (_isRight && !_isButtonDowned)
         {
             transform.GetComponent<Image>().color = _originalColor;
             _managment._isRightAnswer = true;
             _coinsSystem.PlusCoin(_plusCount);
-            _coinsSystem._score++;
+            _coinsSystem._nowScore++;
+            _coinsSystem.SetSystem(_coinsSystem.GetCoin(), _coinsSystem._nowScore);
+            _isButtonDowned = true;
         }
-        else
+        else if(!_isRight)
         {
             _managment.ToMainMenu();
             _coinsSystem.SetSystem(_coinsSystem.GetCoin(), 0);

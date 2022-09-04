@@ -6,6 +6,8 @@ public class Prompt : MonoBehaviour
     [SerializeField] public List<GameObject> _variantsPrompt;
     [SerializeField] public List<GameObject> _variantPrompt;
 
+    public Variants _rightAnswer;
+
     private int _randromPrompt;
 
     private UIManagment _managment;
@@ -21,6 +23,7 @@ public class Prompt : MonoBehaviour
         if (_managment._isNewPrompt)
         {
             _variantPrompt = new List<GameObject>(_variantsPrompt);
+            _rightAnswer._isButtonDowned = false;
         }
         if (_managment._isPrompt)
         {
