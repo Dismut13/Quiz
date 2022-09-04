@@ -21,15 +21,16 @@ public class AutoSave : MonoBehaviour
     public void LoadGame()
     {
         _coins._coins = PlayerPrefs.GetInt("Coins");
-        _coins._score = PlayerPrefs.GetInt("Score");
+        _coins._highScore = PlayerPrefs.GetInt("Score");
         _uiManagment._nowLevel = PlayerPrefs.GetInt("Level");
+        _uiManagment._isNewPrompt = false;
     }
 
     public void DeleteSave()
     {
         PlayerPrefs.DeleteAll();
         _coins._coins = 0;
-        _coins._score = 0;
+        _coins._highScore = 0;
         _uiManagment._nowLevel = 0;
     }
 }
