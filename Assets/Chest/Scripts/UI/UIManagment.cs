@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class UIManagment : MonoBehaviour
 {
+    public CoinsSystem _score;
     public int _nowLevel;
+
+    public int _minusCoin = 25;
 
     public bool _isMainMenuActive = true;
 
@@ -16,6 +19,14 @@ public class UIManagment : MonoBehaviour
     public bool _isUsePrompt;
     public bool _isPrompt;
     public bool _isRePrompt;
+    public bool _isNewPrompt;
+
+    private AutoSave _save;
+
+    private void Awake()
+    {
+        _save = GetComponent<AutoSave>();
+    }
 
     public void SetActiveTrue(bool _isBool)
     {
@@ -31,12 +42,14 @@ public class UIManagment : MonoBehaviour
     public void NextLevel(int nextLevel)
     {
         _nowLevel = nextLevel;
-        if(nextLevel < 3 && _isRightAnswer)
+        if(nextLevel < _levels.Length && _isRightAnswer)
         {
             _promptButton.SetActive(_isRightAnswer);
             _levels[nextLevel].SetActive(true);
             _levels[nextLevel - 1].SetActive(false);
             _isRightAnswer = false;
+            _isNewPrompt = false;
+            _save.SaveGame(_score._coins, _score._score, _nowLevel);
         }
         else
         {
@@ -48,13 +61,24 @@ public class UIManagment : MonoBehaviour
             _isMainMenuActive = true;
             _isRightAnswer = false;
             _promptButton.SetActive(_isRightAnswer);
-            ReGame();
+            _nowLevel = 0;
+            _isNewPrompt = true;
+            _save.SaveGame(_score._coins, _score._score, _nowLevel);
+            //ReGame();
         }
     }
     public void Prompt()
     {
-        _isUsePrompt = true;
-        _isPrompt = true;
+        if(_score._coins >= _minusCoin && _levels[_nowLevel].GetComponent<Prompt>()._variantPrompt.Count > 0)
+        {
+            _isUsePrompt = true;
+            _isPrompt = true;
+        }
+        else
+        {
+            _isUsePrompt = false;
+            _isPrompt = false;
+        }
     }
     public void ToLevel()
     {
@@ -76,5 +100,7 @@ public class UIManagment : MonoBehaviour
     public void ReGame()
     {
         _nowLevel = 0;
+        _score._score = 0;
+        _score._coins = 0;
     }
 }
