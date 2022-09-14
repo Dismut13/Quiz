@@ -3,22 +3,29 @@ using UnityEngine.UI;
 
 public class Variants : MonoBehaviour
 {
+    [SerializeField] private int _thisLevel;
     public int _minusCount = 25;
     public int _plusCount = 5;
 
     public bool _isRightAnswer;
+
     public bool _isButtonDowned;
+
+    public bool _isButtonNewDowned;
 
     private UIManagment _managment;
     private CoinsSystem _coinsSystem;
 
     private Color _originalColor;
 
+    private MainMenuM _menu;
+
     private void Awake()
     {
         _managment = FindObjectOfType<UIManagment>();
         _coinsSystem = FindObjectOfType<CoinsSystem>();
         _originalColor = transform.GetComponent<Image>().color;
+        _menu = FindObjectOfType<MainMenuM>();
     }
 
     private void Update()
@@ -45,10 +52,11 @@ public class Variants : MonoBehaviour
             _coinsSystem.SetSystem(_coinsSystem.GetCoin(), _coinsSystem._nowScore);
             _isButtonDowned = true;
         }
-        else if(!_isRight)
+        if(!_isRight)
         {
             _managment.ToMainMenu();
             _coinsSystem.SetSystem(_coinsSystem.GetCoin(), 0);
+            _managment._nowLevel = 0;
         }
     }
 }

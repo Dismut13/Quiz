@@ -14,7 +14,6 @@ public class AutoSave : MonoBehaviour
     {
         PlayerPrefs.SetInt("Coins", coins);
         PlayerPrefs.SetInt("Score", score);
-        PlayerPrefs.SetInt("Level", level);
         PlayerPrefs.Save();
     }
 
@@ -22,7 +21,6 @@ public class AutoSave : MonoBehaviour
     {
         _coins._coins = PlayerPrefs.GetInt("Coins");
         _coins._highScore = PlayerPrefs.GetInt("Score");
-        _uiManagment._nowLevel = PlayerPrefs.GetInt("Level");
         _uiManagment._isNewPrompt = false;
     }
 
