@@ -21,11 +21,25 @@ public class UIManagment : MonoBehaviour
     public bool _isRePrompt;
     public bool _isNewPrompt;
 
+    public GameObject _uiRightCount;
+    public GameObject _uiHighScore;
+
+    public GameObject _mainMenuG;
+
     private AutoSave _save;
+
+    private CheckAnswerSystem _check;
 
     private void Awake()
     {
         _save = GetComponent<AutoSave>();
+        _check = GetComponent<CheckAnswerSystem>();
+    }
+
+    private void Update()
+    {
+        _uiRightCount.SetActive(!_mainMenuG.activeSelf);
+        _uiHighScore.SetActive(_mainMenuG.activeSelf);
     }
 
     public void SetActiveTrue(bool _isBool)
@@ -37,6 +51,8 @@ public class UIManagment : MonoBehaviour
             _mainMenu[i].SetActive(_isBool);
         }
         _isMainMenuActive = _isBool;
+        _check._uiRightCount.gameObject.SetActive(!_isBool);
+        _check._uiHighScore.gameObject.SetActive(_isBool);
         _isRePrompt = true;
     }
     public void NextLevel(int nextLevel)
